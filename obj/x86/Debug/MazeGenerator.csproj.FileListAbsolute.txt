@@ -1,0 +1,7 @@
+c:\users\антон\documents\visual studio 2010\Projects\MazeGenerator\MazeGenerator\bin\Debug\MazeGenerator.exe
+c:\users\антон\documents\visual studio 2010\Projects\MazeGenerator\MazeGenerator\bin\Debug\MazeGenerator.pdb
+c:\users\антон\documents\visual studio 2010\Projects\MazeGenerator\MazeGenerator\obj\x86\Debug\MazeGenerator.Form1.resources
+c:\users\антон\documents\visual studio 2010\Projects\MazeGenerator\MazeGenerator\obj\x86\Debug\MazeGenerator.Properties.Resources.resources
+c:\users\антон\documents\visual studio 2010\Projects\MazeGenerator\MazeGenerator\obj\x86\Debug\MazeGenerator.csproj.GenerateResource.Cache
+c:\users\антон\documents\visual studio 2010\Projects\MazeGenerator\MazeGenerator\obj\x86\Debug\MazeGenerator.exe
+c:\users\антон\documents\visual studio 2010\Projects\MazeGenerator\MazeGenerator\obj\x86\Debug\MazeGenerator.pdb
