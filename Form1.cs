@@ -23,8 +23,22 @@ namespace MazeGenerator
         private void button1_Click(object sender, EventArgs e)
         {
             Graphics g = this.CreateGraphics();
-            g.DrawRectangle(new Pen(Color.Black), 30, 30, 100, 100);
-            g.DrawLine(new Pen(Color.Black), 30, 30, 100, 100);
+
+            Field fl = new Field(g);
+            fl.Print();
+
+            // test
+            /*
+            MazeCell cl = new MazeCell(g);
+
+            List<MazeCell.cellSide> lt = new List<MazeCell.cellSide>() { MazeCell.cellSide.right, MazeCell.cellSide.top };
+
+            for(int i = 1; i <= 10; i++)
+                for(int n = 1; n <= 10; n++)
+                    cl.Print(i*30, n*30, lt);
+             */
+            Maze nm = new Maze();
+            nm.Print(g);
         }
     }
 }
