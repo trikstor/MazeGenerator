@@ -155,27 +155,37 @@ namespace MazeGenerator
                     field[i-1, n-1] = new MazeCell(g, i * 30, n * 30, lt);
                 }
             }
-            MazeAlgo.MazeGen(field);
+            MazeAlgo MA = new MazeAlgo();
+            MA.MazeGen(field, MazeCell.cellSide.bottom);
+            MA.MazeGen(field, MazeCell.cellSide.right);
+            for (int i = 1; i <= 10; i++)
+                for (int n = 1; n <= 10; n++)
+                    field[i-1, n-1].Print();
         }
     }
 
-    public static class MazeAlgo : MazeCell
+    // Алгоритм построения лабиринта
+    public class MazeAlgo
     {
-        public static void MazeGen(MazeCell[,] field)
+        public void MazeGen(MazeCell[,] field, MazeCell.cellSide delSide)
         {
-            int i = 0, n = 0;
+            int i = 0, n = 0; // Столбцы, строки
 
-            if (!field[i, n]._sides.Contains(MazeCell.cellSide.right))
+            while (n < 10 && i < 10)
             {
-                i++;
-            }
-            else if (!field[i, n]._sides.Contains(MazeCell.cellSide.bottom))
-            {
-                n++;
-            }
-            else
-            {
-                field[i, n]._sides.Remove(MazeCell.cellSide.bottom);
+                if (!field[i, n]._sides.Contains(MazeCell.cellSide.right))
+                {
+                    i++;
+                }
+                else if (!field[i, n]._sides.Contains(MazeCell.cellSide.bottom))
+                {
+                    n++;
+                }
+                else
+                {
+                    field[i, n]._sides.Remove(delSide); // Пробиваем путь для исполнителя
+                    n++;
+                }
             }
         }
     }

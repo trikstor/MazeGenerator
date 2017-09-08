@@ -17,3 +17,5 @@ C:\Users\Антон\Desktop\MazeGenerator\obj\x86\Debug\MazeGenerator.pdb
 C:\Users\Антон\Desktop\MazeGenerator\obj\x86\Debug\MazeGenerator.Form1.resources
 C:\Users\Антон\Desktop\MazeGenerator\obj\x86\Debug\MazeGenerator.Properties.Resources.resources
 C:\Users\Антон\Desktop\MazeGenerator\obj\x86\Debug\MazeGenerator.csproj.GenerateResource.Cache
+C:\Users\Антон\Desktop\MazeGenerator\bin\Debug\MazeGenerator.exe
+C:\Users\Антон\Desktop\MazeGenerator\bin\Debug\MazeGenerator.pdb
