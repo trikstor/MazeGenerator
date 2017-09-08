@@ -61,11 +61,14 @@ namespace MazeGenerator
         private Graphics _g;
 
         private int _x, _y;
-        private List<cellSide> _sides;
+        public List<cellSide> _sides;
 
-        public MazeCell(Graphics g)
+        public MazeCell(Graphics g, int x, int y, List<cellSide> sides)
         {
             _g = g;
+            _x = x;
+            _y = y;
+            _sides = sides;
         }
 
         public Point CheckSide(cellSide side, out Point swic)
@@ -95,10 +98,8 @@ namespace MazeGenerator
             return tempCoord;
         }
 
-        public void Print(int x, int y, List<cellSide> _sides)
+        public void Print()
         {
-            _x = x;
-            _y = y;
             Point swic, tempCoord;
 
             foreach(cellSide side in _sides)
@@ -120,8 +121,7 @@ namespace MazeGenerator
         public void Print(Graphics g)
         {
             int cnt;
-            MazeCell mc = new MazeCell(g);
-            //MazeCell [][]field;
+            MazeCell[ , ] field = new MazeCell[10, 10];
             List<MazeCell.cellSide> lt;
             MazeCell.cellSide []Border = { MazeCell.cellSide.left, MazeCell.cellSide.right, 
                                              MazeCell.cellSide.top, MazeCell.cellSide.bottom };
@@ -129,6 +129,7 @@ namespace MazeGenerator
             Random rnd = new Random();
 
             for (int i = 1; i <= 10; i++)
+            {
                 for (int n = 1; n <= 10; n++)
                 {
                     lt = new List<MazeCell.cellSide>();
@@ -147,13 +148,36 @@ namespace MazeGenerator
                     while (lt.Count < 2)
                     {
                         cnt = rnd.Next(0, 3);
-                        if( ! lt.Contains(Border[cnt]))
+                        if (!lt.Contains(Border[cnt]))
                             lt.Add(Border[cnt]);
                     }
 
-                    mc.Print(i*30, n*30, lt);
+                    field[i-1, n-1] = new MazeCell(g, i * 30, n * 30, lt);
                 }
+                MazeGenerator(MazeCell[,] field);
+            }
 
+        }
+    }
+
+    public static class MazeAlgo : MazeCell
+    {
+        public static void MazeGenerator(MazeCell[,] field)
+        {
+            int i = 0, n = 0;
+
+            if (!field[i, n]._sides.Contains(MazeCell.cellSide.right))
+            {
+                i++;
+            }
+            else if (!field[i, n]._sides.Contains(MazeCell.cellSide.bottom))
+            {
+                n++;
+            }
+            else
+            {
+                field[i, n]._sides.Remove(MazeCell.cellSide.bottom);
+            }
         }
     }
 }
