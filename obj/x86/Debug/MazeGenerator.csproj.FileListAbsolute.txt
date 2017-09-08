@@ -12,3 +12,8 @@ C:\Users\Антон\Documents\Visual Studio 2010\Projects\MazeGenerator\MazeGene
 C:\Users\Антон\Documents\Visual Studio 2010\Projects\MazeGenerator\MazeGenerator\MazeGenerator\obj\x86\Debug\MazeGenerator.Form1.resources
 C:\Users\Антон\Documents\Visual Studio 2010\Projects\MazeGenerator\MazeGenerator\MazeGenerator\obj\x86\Debug\MazeGenerator.Properties.Resources.resources
 C:\Users\Антон\Documents\Visual Studio 2010\Projects\MazeGenerator\MazeGenerator\MazeGenerator\obj\x86\Debug\MazeGenerator.csproj.GenerateResource.Cache
+C:\Users\Антон\Desktop\MazeGenerator\obj\x86\Debug\MazeGenerator.exe
+C:\Users\Антон\Desktop\MazeGenerator\obj\x86\Debug\MazeGenerator.pdb
+C:\Users\Антон\Desktop\MazeGenerator\obj\x86\Debug\MazeGenerator.Form1.resources
+C:\Users\Антон\Desktop\MazeGenerator\obj\x86\Debug\MazeGenerator.Properties.Resources.resources
+C:\Users\Антон\Desktop\MazeGenerator\obj\x86\Debug\MazeGenerator.csproj.GenerateResource.Cache

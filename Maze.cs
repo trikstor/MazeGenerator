@@ -154,15 +154,14 @@ namespace MazeGenerator
 
                     field[i-1, n-1] = new MazeCell(g, i * 30, n * 30, lt);
                 }
-                MazeGenerator(MazeCell[,] field);
             }
-
+            MazeAlgo.MazeGen(field);
         }
     }
 
     public static class MazeAlgo : MazeCell
     {
-        public static void MazeGenerator(MazeCell[,] field)
+        public static void MazeGen(MazeCell[,] field)
         {
             int i = 0, n = 0;
 
