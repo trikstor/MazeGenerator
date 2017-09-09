@@ -24,14 +24,17 @@ namespace MazeGenerator
     // Лабиринт
     interface IMazeble
     {
+        void Print();
     }
 
-    //
+    // Поле для лабиринта
     public class Field : IMazeble
     {
-        public const int width = 300;
-        public const int height = 300;
+        private const int width = 300;
+        private const int height = 300;
         private Graphics _g;
+
+        static public MazeCell[,] field = new MazeCell[10, 10];
 
         public Field(Graphics g)
         {
@@ -41,6 +44,10 @@ namespace MazeGenerator
         public void Print()
         {
             _g.DrawRectangle(new Pen(Color.Black), 30, 30, width, height);
+
+            for (int i = 1; i <= 10; i++)
+                for (int n = 1; n <= 10; n++)
+                    field[i - 1, n - 1].Print();
         }
     }
 
@@ -60,21 +67,20 @@ namespace MazeGenerator
 
         private Graphics _g;
 
-        private int _x, _y;
-        public List<cellSide> _sides;
+        private Point _dotCoord;
+        public List<cellSide> _sides { get; private set; }
 
         public MazeCell(Graphics g, int x, int y, List<cellSide> sides)
         {
             _g = g;
-            _x = x;
-            _y = y;
+            _dotCoord = new Point(x, y);
             _sides = sides;
         }
 
-        public Point CheckSide(cellSide side, out Point swic)
+       private Point CheckSide(cellSide side, out Point swic)
         {
-            Point tempCoord = new Point(_x, _y);
-            swic = new Point(_x, _y);
+            Point tempCoord = new Point(_dotCoord.x, _dotCoord.y);
+            swic = _dotCoord;
 
             switch (side)
                 {
@@ -109,23 +115,25 @@ namespace MazeGenerator
             }
         }
 
-        public void CellGraph(Point swic, Point tempCoord)
+        private void CellGraph(Point swic, Point tempCoord)
         {
             _g.DrawLine(new Pen(Color.Black), tempCoord.x, tempCoord.y, swic.x, swic.y);
         }
     }
 
     // Построение лабиринта
-    class Maze : IMazeble
+    class SquareMaze : IMazeble
     {
-        public void Print(Graphics g)
+        Graphics _g;
+
+        public SquareMaze(Graphics g)
         {
             int cnt;
-            MazeCell[ , ] field = new MazeCell[10, 10];
-            List<MazeCell.cellSide> lt;
-            MazeCell.cellSide []Border = { MazeCell.cellSide.left, MazeCell.cellSide.right, 
-                                             MazeCell.cellSide.top, MazeCell.cellSide.bottom };
 
+            List<MazeCell.cellSide> lt;
+            MazeCell.cellSide[] Border = { MazeCell.cellSide.left, MazeCell.cellSide.right, 
+                                             MazeCell.cellSide.top, MazeCell.cellSide.bottom };
+            _g = g;
             Random rnd = new Random();
 
             for (int i = 1; i <= 10; i++)
@@ -152,39 +160,60 @@ namespace MazeGenerator
                             lt.Add(Border[cnt]);
                     }
 
-                    field[i-1, n-1] = new MazeCell(g, i * 30, n * 30, lt);
+                    Field.field[i - 1, n - 1] = new MazeCell(_g, i * 30, n * 30, lt);
                 }
             }
             MazeAlgo MA = new MazeAlgo();
-            MA.MazeGen(field, MazeCell.cellSide.bottom);
-            MA.MazeGen(field, MazeCell.cellSide.right);
-            for (int i = 1; i <= 10; i++)
-                for (int n = 1; n <= 10; n++)
-                    field[i-1, n-1].Print();
+            MA.MazeGen(Field.field, MazeCell.cellSide.bottom);
+            MA.MazeGen(Field.field, MazeCell.cellSide.right);
+        }
+
+        // Печать лабиринта
+        public void Print()
+        {
+            Field MF = new Field(_g);
+            MF.Print();
         }
     }
 
     // Алгоритм построения лабиринта
     public class MazeAlgo
     {
+        private MazeCell.cellSide LogNo(MazeCell.cellSide side)
+        {
+            if (side == MazeCell.cellSide.bottom)
+                return MazeCell.cellSide.right;
+            return MazeCell.cellSide.bottom;
+        }
+
         public void MazeGen(MazeCell[,] field, MazeCell.cellSide delSide)
         {
             int i = 0, n = 0; // Столбцы, строки
 
             while (n < 10 && i < 10)
             {
-                if (!field[i, n]._sides.Contains(MazeCell.cellSide.right))
+                if (!field[i, n]._sides.Contains(delSide))
                 {
-                    i++;
+                    if (delSide == MazeCell.cellSide.bottom)
+                        i++;
+                    else
+                        n++;
                 }
-                else if (!field[i, n]._sides.Contains(MazeCell.cellSide.bottom))
+                else if (!field[i, n]._sides.Contains(LogNo(delSide)))
                 {
-                    n++;
+                    if (delSide == MazeCell.cellSide.bottom)
+                        n++;
+                    else
+                        i++;
                 }
                 else
                 {
                     field[i, n]._sides.Remove(delSide); // Пробиваем путь для исполнителя
-                    n++;
+
+                    if (delSide == MazeCell.cellSide.bottom)
+                        i++;
+                    else
+                        n++;
                 }
             }
         }
